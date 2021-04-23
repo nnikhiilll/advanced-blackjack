@@ -1,0 +1,135 @@
+# main.py
+# main.py
+import random
+
+input("Welcome to the game of Blackjack! In this game, you will be dealt two cards to start. Your goal is to get as close to 21 as possible without going over - or busting! In this simple version of Blackjack, we only use the cards 2 through 11 (Ace).\n\nThe dealer will first ask you to hit (take another card) or stay. As long as you don't bust, once you decide to stay, the dealer will then play his hand. The dealer always has to hit until his hand is at least 17. Whoever has the better hand at the end wins!\n\nPress Enter to start playing.\n")
+
+money=500
+
+
+
+
+deck=[]
+for i in range(1,14):
+  for j in range(4):
+    if i==11:
+      i='Jack'
+    if i==12:
+      i='Queen'
+    if i==13:
+      i='King'
+    if i==1:
+      i='Ace'
+    deck.append(i)
+
+
+def Score(hand1):
+  value=0
+  for i in hand1:
+    if i=='Jack' or i=='Queen' or i=='King':
+      value+=10
+    elif i=='Ace':
+      value+=1
+    else:
+      value+=i
+  return value
+
+def Hit(hand2):
+  cardnumber=random.randint(0,len(deck)-1)
+  hand.append(deck[cardnumber])
+  deck.remove(deck[cardnumber])
+
+
+
+while True:
+  bet=int(input("How much money do you want to bet?"))
+  print("You have $"+str(money-bet)+". You are betting $"+str(bet))
+  valid=True
+  hand=[]
+  dealer=[]
+  for i in range(2):
+    cardnumber=random.randint(0,len(deck)-1)
+    hand.append(deck[cardnumber])
+    deck.remove(deck[cardnumber])
+    cardnumber=random.randint(0,len(deck)-1)
+    dealer.append(deck[cardnumber])
+    deck.remove(deck[cardnumber])
+  print("Here is your hand: ")
+  print(hand)
+  print("Here is the dealer's hand: ")
+  print(dealer[0])
+  while True:
+    if Score(hand)==21:
+        print("You got Blackjack! :)")
+        money+=bet
+        valid=False
+        break
+    
+    typein=input("Type in H to hit, or S to stay: ")
+    if typein=='H'or typein=='h':
+      print("Here is your hand: ")
+      Hit(hand)
+      print(hand)
+      if Score(hand)>21:
+        print("You busted! :C")
+        money-=bet
+        valid=False
+        break
+      if Score(hand)==21:
+        print("You won! :)")
+        money+=bet
+        valid=False
+        break
+    else:
+      break
+  if valid==True:
+    while True: 
+      print("Here is the dealer's hand: ")
+      print(dealer)
+      if Score(dealer)<17:
+        print("Here is the dealers hand: ")
+        Hit(dealer)
+        print(dealer)
+      elif Score(dealer)>21:
+        print("The dealer busted! :)")
+        money+=bet
+        break
+      elif Score(dealer)==21:
+        print("The dealer got Blackjack :C ")
+        money-=bet
+        break
+      else:
+        if Score(dealer)>Score(hand):
+          print("The dealer won :C")
+          money-=bet
+          break
+        if Score(dealer)<Score(hand):
+          print("YOu won! :)")
+          money+=bet
+          break
+        if Score(dealer)==Score(hand):
+          print("The dealer won :C")
+          money-=bet
+          break
+  input("Press Enter to Play Again: ")
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+
